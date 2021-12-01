@@ -2,7 +2,11 @@ import LocationIcon from "@mui/icons-material/LocationOn";
 import { Box } from "@mui/system";
 import React, { useEffect, useRef, useState } from "react";
 import { GeolocationControl, Map, ZoomControl } from "react-yandex-maps";
-import { useStyles } from "./App.styles";
+// import { useStyles } from "./App.styles";
+
+import { makeStyles } from "@mui/styles";
+
+const a = makeStyles();
 
 const mapOptions = {
   modules: ["geocode", "SuggestView"],
@@ -27,7 +31,7 @@ export default function YMapsTest() {
   const [mapConstructor, setMapConstructor] = useState(false);
   const mapRef = useRef(null);
   const searchRef = useRef(null);
-  const classes = useStyles();
+  const classes = {};
 
   // search popup
   useEffect(() => {
@@ -58,25 +62,23 @@ export default function YMapsTest() {
   // RENDER
   return (
     <Box sx={{ m: 2, width: 600 }}>
-      <Box sx={{ color: "text.primary", fontSize: 34, fontWeight: "medium" }}>
+      <Box sx={{ bgcolor: "primary.main" }}>
         {/* .{state.title && <Box>{state.title}</Box>} */}
+        {/* <LocationIcon className={classes["placemark"]} /> */}
+
         <input ref={searchRef} placeholder="куда маркер ставить будем?" style={{ width: "100%" }} />
       </Box>
 
-      <Box sx={{ position: "relative" }}>
-        <Map
-          {...mapOptions}
-          state={state}
-          onLoad={(map) => setMapConstructor(map)}
-          onBoundsChange={handleBoundsChange}
-          instanceRef={mapRef}
-        >
-          <LocationIcon className={classes["placemark"]} />
-
-          <GeolocationControl {...geolocationOptions} />
-          <ZoomControl />
-        </Map>
-      </Box>
+      <Map
+        {...mapOptions}
+        state={state}
+        onLoad={(map) => setMapConstructor(map)}
+        onBoundsChange={handleBoundsChange}
+        instanceRef={mapRef}
+      >
+        <GeolocationControl {...geolocationOptions} />
+        <ZoomControl />
+      </Map>
     </Box>
   );
 }
