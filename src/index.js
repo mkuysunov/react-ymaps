@@ -20,7 +20,7 @@ function MuiCustomization({ children }) {
 ReactDOM.render(
   <React.StrictMode>
     <MuiCustomization>
-      <YMaps query={{ apikey: "29294198-6cdc-4996-a870-01e89b830f3e" }}>
+      <YMaps query={{ apikey: "29294198-6cdc-4996-a870-01e89b830f3e", lang: "en_RU" }}>
         <App />
       </YMaps>
     </MuiCustomization>
