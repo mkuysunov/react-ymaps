@@ -21,7 +21,7 @@ const geolocationOptions = {
 
 const initialState = {
   title: "",
-  center: [38.54, 68.76],
+  center: [55.749451, 37.542824],
   zoom: 12,
 };
 
@@ -34,7 +34,7 @@ export default function YMapsTest() {
 
   // submits
   const handleSubmit = () => {
-    console.log(mapRef.current.getCenter());
+    console.log({ title: state.title, center: mapRef.current.getCenter() });
   };
 
   // reset state & search
@@ -73,7 +73,7 @@ export default function YMapsTest() {
     <Box sx={{ m: 2, width: 600 }}>
       <Box className={classes["searchRoot"]}>
         <Box className={classes["searchFieldBox"]}>
-          <input ref={searchRef} placeholder="Search..." />
+          <input ref={searchRef} placeholder="Search..." disabled={!mapConstructor} />
           <Box className={clsx(classes["titleBox"], { [classes["titleBox_show"]]: Boolean(state.title.length) })}>
             <Typography title={state.title} gutterBottom={false}>
               {state.title}
@@ -96,7 +96,7 @@ export default function YMapsTest() {
           onBoundsChange={handleBoundsChange}
           instanceRef={mapRef}
         >
-          <LocationPlacemark className={classes["placemark"]} />
+          <LocationPlacemark className={classes["placemark"]} color="primary" />
           <GeolocationControl {...geolocationOptions} />
           <ZoomControl />
         </Map>
