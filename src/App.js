@@ -59,12 +59,16 @@ export default function YMapsTest() {
   }, [mapConstructor]);
 
   // change title
-  const handleBoundsChange = () => {
+  const handleBoundsChange = (e) => {
     const newCoords = mapRef.current.getCenter();
     mapConstructor.geocode(newCoords).then((res) => {
-      var nearest = res.geoObjects.get(0);
-      var foundAddress = nearest.properties.get("text");
-      setState((prevState) => ({ ...prevState, title: foundAddress }));
+      const nearest = res.geoObjects.get(0);
+      const foundAddress = nearest.properties.get("text");
+      const [centerX, centerY] = nearest.geometry.getCoordinates();
+      const [initialCenterX, initialCenterY] = initialState.center;
+      if (centerX !== initialCenterX && centerY !== initialCenterY) {
+        setState((prevState) => ({ ...prevState, title: foundAddress }));
+      }
     });
   };
 
